@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+    image: salesforce-account-manager:local
+    ports:
+      - '${PORT:-4000}:4000'
+    # Reuses the same credentials as local development. Create it first:
+    #   cp server/.env.example server/.env
+    env_file:
+      - server/.env
+    environment:
+      # environment wins over env_file, so a development NODE_ENV in
+      # server/.env cannot leak into the container.
+      NODE_ENV: production
+      PORT: '4000'
+      SERVE_CLIENT: 'true'
+      CLIENT_ORIGIN: 'http://localhost:${PORT:-4000}'
+      # This file is the live-org path: refuse the in-memory demo explicitly.
+      # For a no-credentials demo use docker-compose.demo.yml (see README).
+      SF_MOCK: 'false'
+    restart: unless-stopped

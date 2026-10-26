@@ -1,0 +1,11 @@
+# Demo overlay — runs the same image with in-memory data and no Salesforce org.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.demo.yml up --build
+#
+# The API refuses SF_MOCK=true when NODE_ENV=production (and docker-compose.yml
+# sets production), so this overlay deliberately switches back to development.
+services:
+  app:
+    environment:
+      NODE_ENV: development
+      SF_MOCK: 'true'

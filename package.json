@@ -1,0 +1,35 @@
+{
+  "name": "salesforce-account-manager",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack Salesforce Account Manager: Vue 3 + TypeScript front end, Node.js/Express + TypeScript API, jsforce OAuth 2.0 client-credentials integration.",
+  "keywords": [
+    "salesforce",
+    "jsforce",
+    "vue",
+    "pinia",
+    "typescript",
+    "express"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c cyan,magenta \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "npm run dev -w server",
+    "dev:client": "npm run dev -w client",
+    "build": "npm run build -w server && npm run build -w client",
+    "start": "npm run start -w server",
+    "test": "npm run test -w server && npm run test -w client",
+    "test:coverage": "npm run test:coverage -w server && npm run test:coverage -w client",
+    "typecheck": "npm run typecheck -w server && npm run typecheck -w client"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}
